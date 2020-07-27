@@ -55,7 +55,7 @@ class ClassController extends Controller
       'class_key' => Hash::make($data['class_key']),
    ]);
 
-   return redirect()->back()->with('success','Successfully created your class. Share your class name and key with your learners to enable them join the class');
+   return redirect(route('myClasses',auth()->user()->id))->with('success','Successfully created your class. Share your class name and key with your learners to enable them join the class');
    }
 
    public function update(Clas $clas)
@@ -81,5 +81,13 @@ class ClassController extends Controller
    {
       $classes=Clas::paginate(50);
       return view('classes.all');
+   }
+   public function delete(Clas $clas){
+      if (Hash::check(request()->class_key, $clas->class_key)) {
+        $clas->delete();
+        return redirect(route('myClasses',auth()->user()->id))->with('success','Class Deleted');
+      }else{
+         return redirect()->back()->with('error','Incorrect Security Key supplied');
+      }
    }
 }

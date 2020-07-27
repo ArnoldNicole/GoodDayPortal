@@ -4,6 +4,9 @@
 	<h4>My Classes <i class="fa fa-book"></i></h4>
 <div class="row">	
 		<div class="col-md-9">
+			@if($classes->count()<1)
+				<h4>You don`t have any classes, <a href="{{route('newClass', auth()->user()->id)}}">click here</a> to create one</h4>
+			@endif
 			@foreach($classes as $class)
 			<div class="card mt-2">	
 				<div class="card-header">
@@ -13,19 +16,19 @@
 					<div class="row justify-content-center">
 						<div class="col-md-4">
 							<img src="{{$class->icon}}" alt="{{$class->class_name}}" class="rounded-circle img-thumbnail w-100">
+							<hr>
+							<div class="text-capitalize text-lg-center">{{75}} <h4>Attending</h4></div>
 						</div>
 						<div class="col-md-8">
 							<p>Class Name: <span>{{$class->class_name}}</span></p>
 							<p>Description <span>{{$class->decription}}</span></p>
 							<p>Allowed members: <span>{{$class->max_pupils}}</span></p>
+							<p>Status: <span>{{$class->status}}</span></p>
 							<br>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="badge badge-secondary text-capitalize text-lg-center">{{75}} <h4>Current Members</h4></div>
-								</div>
+							<div class="row">								
 								<div class="col-md-6">									
-										<div class="btn-group-vertical">
-											<button class="btn btn-info" data-toggle="modal" data-target="#modal{{$class->id}}_editModal">Edit</button>
+										
+											
 											<div class="dropdown">
 												<button class="btn btn-primary dropdown-toggle" id="class_{{$class->id}}ToggleButton"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</button>
 												<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -33,17 +36,61 @@
 												    <a class="dropdown-item font-weight-bold text-dark" href="#">Manage members</a>
 												    <a class="dropdown-item font-weight-bold text-dark" href="#">Chat in class</a>
 												    <a class="dropdown-item font-weight-bold text-dark" href="#">Edit class key</a>
+												    <a class="dropdown-item bg-info font-weight-bold" data-toggle="modal" data-target="#modal{{$class->id}}_editModal">Edit</a>
+												    <a class="dropdown-item bg-danger font-weight-bold" data-target="#Deletemodal{{$class->id}}_editModal" data-toggle="modal">Delete</a>
 
 												  </div>
 											</div>
-											<button class="btn btn-danger">Delete</button>
-										</div>
 
-											<div class="modal fade show" id="modal{{$class->id}}_editModal"  role="dialog" aria-labelledby="{{$class->id}}_editModalLabel" aria-hidden="true">
+											<div class="modal fade show" id="Deletemodal{{$class->id}}_editModal"  role="dialog" aria-labelledby="{{$class->id}}_DeleteModalLabel" aria-hidden="true">
 											  <div class="modal-dialog modal-lg" role="document">
 											    <div class="modal-content">
 											      <div class="modal-header alert-primary">
-											        <h5 class="modal-title" id="{{$class->id}}_editModalLabel">Hello <span class="text-dark">{{auth()->user()->name}}</span> Edit {{$class->class_name}} Details</h5>
+											        <h5 class="modal-title" id="{{$class->id}}_DeleteModalLabel">Hello <span class="text-dark">{{auth()->user()->name}}</span> Are you sure you?</h5>
+											        <button class="close bg-danger" type="button" data-dismiss="modal" aria-label="Close">
+											          <span aria-hidden="true">&times;</span>
+											        </button>
+											      </div>
+											      <div class="modal-body">
+											      	<div class="row justify-content-between">
+											      		<div class="col-md-12">
+											      		 <form action="{{route('deleteClass', $class->id)}}" method="POST" enctype="multipart/form-data">
+											      		 	@csrf
+											      		 	@method("DELETE")
+											      		 	<div class="row form-group">
+											      		 		<div class="col-md-8">
+											      		 			<h3>Are you sure you want to delete {{$class->classname}} ?</h3>
+											      		 		</div>
+											      		 	</div>
+											      		 	<div class="form-group row">
+											      		 		<label class="col-md-4 col-form-label">Confirm with Class Key to Delete</label>
+											      		 		<div class="col-md-8">
+											      		 			<input type="password" class="form-control" placeholder="Enter Class Key to delete" name="class_key">
+											      		 		</div>
+											      		 	</div>
+
+											      		 	<div class="form-group row justify-content-center">
+											      		 		
+											      		 		<div class="col-md-6">
+											      		 			<button class="btn btn-block btn-danger">Delete</button>
+											      		 			<small>Deleting a class can only be undone before 72 hours</small>
+											      		 		</div>
+											      		 	</div>
+											      		 </form>											
+											      		</div>
+											      	</div>
+											      </div>											      
+											    </div>
+											  </div>
+											</div>
+											
+										
+
+											<div class="modal fade show" id="modal{{$class->id}}_editModal"  role="dialog" aria-labelledby="{{$class->id}}_DeleteModalLabel" aria-hidden="true">
+											  <div class="modal-dialog modal-lg" role="document">
+											    <div class="modal-content">
+											      <div class="modal-header alert-primary">
+											        <h5 class="modal-title" id="{{$class->id}}_DeleteModalLabel">Hello <span class="text-dark">{{auth()->user()->name}}</span> Edit {{$class->class_name}} Details</h5>
 											        <button class="close bg-danger" type="button" data-dismiss="modal" aria-label="Close">
 											          <span aria-hidden="true">&times;</span>
 											        </button>

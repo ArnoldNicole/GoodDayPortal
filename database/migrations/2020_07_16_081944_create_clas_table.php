@@ -23,6 +23,7 @@ class CreateClasTable extends Migration
             $table->string('decription')->nullable();
             $table->string('class_key');
             $table->string('icon')->default('https://source.unsplash.com/QAB-WJcbgJk/60x60');
+            $table->softDeletes();
         });
     }
 
