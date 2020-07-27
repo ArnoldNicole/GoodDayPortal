@@ -32,4 +32,4 @@ Route::post('/account/teacher/class/new','ClassController@create')->name('save_c
 Route::get('/account/teacher/class/list/{user}','ClassController@index')->name('myClasses')->middleware(['auth','teacher']);
 Route::patch('/account/class/update/{clas}','ClassController@update')->name('updateClass')->middleware(['auth','teacher']);
 Route::delete('/account/class/update/{clas}','ClassController@delete')->name('deleteClass')->middleware(['auth','teacher']);
-Route::get('/account/{username}','ClassController@fetch')->name('ClassLists');
+Route::get('/account/class_lists','ClassController@fetch')->name('ClassLists'); 

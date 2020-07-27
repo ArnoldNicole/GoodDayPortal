@@ -80,7 +80,7 @@ class ClassController extends Controller
    public function fetch()
    {
       $classes=Clas::paginate(50);
-      return view('classes.all');
+      return view('classes.all',compact('classes'));
    }
    public function delete(Clas $clas){
       if (Hash::check(request()->class_key, $clas->class_key)) {
