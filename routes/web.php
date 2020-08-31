@@ -33,3 +33,5 @@ Route::get('/account/teacher/class/list/{user}','ClassController@index')->name('
 Route::patch('/account/class/update/{clas}','ClassController@update')->name('updateClass')->middleware(['auth','teacher']);
 Route::delete('/account/class/update/{clas}','ClassController@delete')->name('deleteClass')->middleware(['auth','teacher']);
 Route::get('/account/class_lists','ClassController@fetch')->name('ClassLists'); 
+Route::get('/teacher/classes/members/{clas}','ClassController@members')->name('class_members');
+Route::get('/class/join/{clas}','ClassController@join')->name('join_class');

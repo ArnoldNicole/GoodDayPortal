@@ -33,7 +33,7 @@
 												<button class="btn btn-primary dropdown-toggle" id="class_{{$class->id}}ToggleButton"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</button>
 												<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 												    <a class="dropdown-item font-weight-bold text-dark" href="#">Publish Assignment</a>
-												    <a class="dropdown-item font-weight-bold text-dark" href="#">Manage members</a>
+												    <a class="dropdown-item font-weight-bold text-dark" href="{{route('class_members',$class->id)}}">Manage members</a>
 												    <a class="dropdown-item font-weight-bold text-dark" href="#">Chat in class</a>
 												    <a class="dropdown-item font-weight-bold text-dark" href="#">Edit class key</a>
 												    <a class="dropdown-item bg-info font-weight-bold" data-toggle="modal" data-target="#modal{{$class->id}}_editModal">Edit</a>

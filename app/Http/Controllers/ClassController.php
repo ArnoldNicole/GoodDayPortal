@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Clas;
 use App\User;
+use Auth;
 
 class ClassController extends Controller
 {
@@ -89,5 +90,16 @@ class ClassController extends Controller
       }else{
          return redirect()->back()->with('error','Incorrect Security Key supplied');
       }
+   }
+   public function members(Clas $clas)
+   {
+     $classes=$clas->members();
+     return view('classes.members',compact('classes'));
+   }
+   public function join(Clas $clas)
+   {
+      $user=Auth::user();
+      $user->classes();
+      return view('classes.join',compact('clas'));
    }
 }

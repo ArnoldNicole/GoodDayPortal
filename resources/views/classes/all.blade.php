@@ -10,7 +10,7 @@
 					<img src="{{$class->icon}}" alt="{{$class->class_name}}" class="rounded-circle w-25">
 					<hr>
 					
-						<button class="btn btn-info btn-block">Join</button>
+						<a class="btn btn-info btn-block" href="{{route('join_class',$class->id)}}">Details</a>
 					
 				</div>
 				<div class="col-md-6">
